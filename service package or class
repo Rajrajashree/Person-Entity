@@ -1,1 +1,64 @@
+package com.qsp.person.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.qsp.person.dao.PersonDao;
+import com.qsp.person.entity.Person;
+
+
+
+@Service
+public class PersonService {
+	@Autowired
+	private PersonDao dao;
+	
+	public ResponseEntity<Person>  savePerson(Person person) {
+		Person returnedPerson=  dao.savePerson(person);
+		return new ResponseEntity<Person>(returnedPerson, HttpStatus.CREATED);
+	}
+	
+	public ResponseEntity<Person> findPersonById(int id) {
+		Optional<Person>optional= dao.findPersonById(id);
+		if(optional.isPresent()) {
+			return new ResponseEntity<Person>(optional.get(),HttpStatus.OK);
+		}return null;
+	}
+	
+	public ResponseEntity<List<Person>>findAll(){
+		List <Person> list = dao.findAll();
+		return new ResponseEntity<List<Person>>(list,HttpStatus.OK);
+	}
+	
+	public ResponseEntity<String> deleteById(int id) {
+		Optional<Person>optional= dao.findPersonById(id);
+		if(optional.isPresent()) {
+			return new ResponseEntity<String>("Person is deleted",HttpStatus.OK);
+		}
+		return new ResponseEntity<String>("id not exist", HttpStatus.NOT_FOUND);
+	}
+	
+	public ResponseEntity<String> fetchByPhone(double phone) {
+		Optional<Person>optional= dao.findPersonByPhone(phone);
+		if(optional.isPresent()) {
+			return new ResponseEntity<>("found",HttpStatus.OK);
+		}
+		return new ResponseEntity<>("not found",HttpStatus.NOT_FOUND);
+	}
+	
+	
+	public ResponseEntity<Person> findPersonByNameAndPhone(String name, double phone) {
+		Optional<Person>optional= dao.findPersonByNameAndPhone(name,phone);
+		if(optional.isPresent()) {
+			return new ResponseEntity<Person>(optional.get(),HttpStatus.OK);
+		}return null;
+		
+	}
+
+}
 
