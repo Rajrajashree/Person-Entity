@@ -1,1 +1,54 @@
+package com.qsp.person.dao;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.qsp.person.entity.Person;
+import com.qsp.person.repository.PersonRespository;
+
+@Component
+public class PersonDao {
+	@Autowired
+private PersonRespository repository;//object
+	
+	public Person savePerson(Person person) {
+		return repository.save(person);
+	}
+	
+	public Optional<Person> findPersonById(int id){
+		return repository.findById(id);
+	}
+	
+	public List<Person> findAll(){
+		return repository.findAll();
+	}
+	
+	public void delete(int id) {
+		Optional<Person> optional = findPersonById(id);
+		if (optional.isPresent()) {
+			Person person= optional.get();
+			repository.delete(person);
+		}
+	}
+	
+	public Optional<Person> findPersonByPhone(double phone){
+		return repository.findByPhone(phone);
+	}
+	
+	public Optional<Person> findPersonByNameAndPhone(String name ,double phone){//method is created in companyrepository
+		return repository.findByNameAndPhone(name,phone);
+				
+	}
+	
+
+	
+	
+	
+	
+	
+
+}
 
