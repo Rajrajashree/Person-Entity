@@ -1,1 +1,44 @@
+package com.qsp.person.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+@Entity
+public class Person {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	public Person() {
+		super();
+	}
+	private String name;
+	private double phone;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public double getPhone() {
+		return phone;
+	}
+	public void setPhone(double phone) {
+		this.phone = phone;
+	}
+	public Person(int id, String name, double phone) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.phone = phone;
+	}
+	
+
+}
 
