@@ -1,1 +1,18 @@
+package com.qsp.person.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.qsp.person.entity.Person;
+
+public interface PersonRespository extends JpaRepository<Person, Integer>{
+
+	Optional<Person> findByNameAndPhone(String name, double phone);
+
+	Optional<Person> findByPhone(double phone);
+
+	
+
+}
 
